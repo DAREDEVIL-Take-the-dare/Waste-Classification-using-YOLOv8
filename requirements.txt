@@ -123,3 +123,4 @@ websocket-client==1.8.0
 ultralytics
 pafy
 youtube-dl
+lap
