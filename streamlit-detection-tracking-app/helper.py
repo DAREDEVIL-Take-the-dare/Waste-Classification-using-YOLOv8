@@ -5,7 +5,6 @@ import pafy
 import pickle
 import settings
 
-pafy.set_backend("internal") 
 #loaded_model=pickle.load(open('C:/Users/MY PC/Desktop/yolov8/yolov8-streamlit-detection-tracking/weights/yolov8.pkl', 'rb'))
 with open('c:/Users/MY PC/Downloads/yolov8 (1).pkl', 'rb') as file:
     model1= pickle.load(file)
