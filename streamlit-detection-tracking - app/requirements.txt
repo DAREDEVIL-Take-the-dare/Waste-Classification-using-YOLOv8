@@ -16,4 +16,4 @@ scikit-learn>=1.2.0
 
 # Visualization
 matplotlib>=3.7.0
-ultralytics
+ultralytics>=8.0.0
