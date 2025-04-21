@@ -4,6 +4,9 @@ import cv2
 import pafy
 import pickle
 import settings
+import time
+
+# Add a refresh every few seconds
 
 #loaded_model=pickle.load(open('C:/Users/MY PC/Desktop/yolov8/yolov8-streamlit-detection-tracking/weights/yolov8.pkl', 'rb'))
 with open('streamlit-detection-tracking-app/weights/yolov8 (1).pkl', 'rb') as file:
@@ -148,41 +151,40 @@ def play_youtube_video(conf, model):
 
 def play_webcam(conf, model):
     """
-    Plays a webcam stream. Detects Objects in real-time using the YOLOv8 object detection model.
+    Plays webcam stream using Streamlit's web interface. Detects objects in real-time
+    using the YOLOv8 model on frames captured from the user's browser.
 
     Parameters:
-        conf: Confidence of YOLOv8 model.
-        model: An instance of the `YOLOv8` class containing the YOLOv8 model.
+        conf: Confidence threshold for the YOLOv8 model.
+        model: A YOLOv8 model instance.
 
     Returns:
         None
-
-    Raises:
-        None
     """
-    source_webcam = settings.WEBCAM_PATH
     is_display_tracker, tracker = display_tracker_options()
-    if st.sidebar.button('Detect Trash'):
-        try:
-            vid_cap = cv2.VideoCapture(0)
-            st_frame = st.empty()
-            while (vid_cap.isOpened()):
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf,
-                                             model,
-                                             st_frame,
-                                             image,
-                                             is_display_tracker,
-                                             tracker,
-                                             )
-                else:
-                    vid_cap.release()
-                    break
-        except Exception as e:
-            st.sidebar.error("Error loading video: " + str(e))
 
+    # Show webcam input on the web app using Streamlit
+    st.info("📷 Enable webcam and click 'Take Photo' repeatedly for live detection.")
+    uploaded_image = st.camera_input("Take a snapshot")
 
+    if uploaded_image is not None:
+        # Read the image from webcam capture
+        image = Image.open(uploaded_image)
+        image_np = np.array(image)
+
+        # Create an empty container for displaying frames
+        st_frame = st.empty()
+
+        # Call your detection display logic
+        _display_detected_frames(
+            conf,
+            model,
+            st_frame,
+            image_np,
+            is_display_tracker,
+            tracker,
+        )
+       
 def play_stored_video(conf, model):
     """
     Plays a stored video file. Tracks and detects objects in real-time using the YOLOv8 object detection model.
