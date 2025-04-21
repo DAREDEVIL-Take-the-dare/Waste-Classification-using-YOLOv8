@@ -8,6 +8,11 @@ import streamlit as st
 # Local Modules
 import settings
 import helper
+import asyncio
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
 
 # Setting page layout
 st.set_page_config(
