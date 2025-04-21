@@ -5,6 +5,7 @@ import pafy
 import pickle
 import settings
 import time
+import numpy as np
 from PIL import Image  # ✅ Add this import
 
 # Add a refresh every few seconds
