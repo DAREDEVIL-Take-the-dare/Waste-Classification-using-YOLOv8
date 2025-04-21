@@ -46,7 +46,7 @@ VIDEOS_DICT = {
 
 
 # ML Model config
-MODEL_DIR =  'C:/Users/MY PC/Desktop/yolov8/yolov8-streamlit-detection-tracking/weights'
+MODEL_DIR =  'streamlit-detection-tracking-app/weights'
 DETECTION_MODEL = MODEL_DIR+'yolov8 (1).pkl'
 #SEGMENTATION_MODEL = MODEL_DIR+'yolov8n-seg.pt'
 
