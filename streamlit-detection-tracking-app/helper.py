@@ -5,6 +5,7 @@ import pafy
 import pickle
 import settings
 import time
+from PIL import Image  # ✅ Add this import
 
 # Add a refresh every few seconds
 
@@ -151,31 +152,30 @@ def play_youtube_video(conf, model):
 
 def play_webcam(conf, model):
     """
-    Plays webcam stream using Streamlit's web interface. Detects objects in real-time
-    using the YOLOv8 model on frames captured from the user's browser.
+    Detects objects in webcam images using the YOLOv8 model via Streamlit's camera input.
 
     Parameters:
-        conf: Confidence threshold for the YOLOv8 model.
-        model: A YOLOv8 model instance.
+        conf: Confidence threshold for YOLOv8 detection.
+        model: Loaded YOLOv8 model instance.
 
     Returns:
         None
     """
     is_display_tracker, tracker = display_tracker_options()
 
-    # Show webcam input on the web app using Streamlit
-    st.info("📷 Enable webcam and click 'Take Photo' repeatedly for live detection.")
+    st.info("📷 Click 'Take Photo' to capture and analyze webcam input.")
+
+    # This will show a webcam interface in the browser
     uploaded_image = st.camera_input("Take a snapshot")
 
     if uploaded_image is not None:
-        # Read the image from webcam capture
+        # Convert the uploaded image to a NumPy array
         image = Image.open(uploaded_image)
         image_np = np.array(image)
 
-        # Create an empty container for displaying frames
         st_frame = st.empty()
 
-        # Call your detection display logic
+        # Display detected results
         _display_detected_frames(
             conf,
             model,
