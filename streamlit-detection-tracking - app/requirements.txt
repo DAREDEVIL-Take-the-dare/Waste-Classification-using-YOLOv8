@@ -1,1 +1,7 @@
 ultralytics
+scipy
+matplotlib
+numpy
+pandas
+streamlit
+openpyxl
